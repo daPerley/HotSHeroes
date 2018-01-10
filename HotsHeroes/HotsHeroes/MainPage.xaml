@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HotsHeroes"
+             x:Class="HotsHeroes.MainPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="All heroes" Activated="Heroes_Activated" />
+    </ContentPage.ToolbarItems>
+
+    <ListView x:Name="favoritesListView" RowHeight="150">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell Height="150">
+                    <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical" VerticalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                            <Image Source="{Binding ImageURL}" HeightRequest="150" WidthRequest="100" />
+                            <Label Text="{Binding PrimaryName}"
+                                TextColor="#f35e20" FontAttributes="Bold"/>
+                            <Label Text="{Binding Group}" TextColor="#503026"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
