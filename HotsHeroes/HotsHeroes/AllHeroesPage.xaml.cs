@@ -1,22 +1,21 @@
 ﻿using HotsHeroes.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HotsHeroes
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AllHeroesPage : ContentPage
-	{
-		public AllHeroesPage ()
-		{
-			InitializeComponent ();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AllHeroesPage : ContentPage
+    {
+        private List<Hero> _heroes;
+
+        public AllHeroesPage()
+        {
+            InitializeComponent();
 
             favoritesListView.ItemsSource = GetAllHeroes();
         }
@@ -31,12 +30,25 @@ namespace HotsHeroes
                 var heroes = response.Content.ReadAsStringAsync().Result;
                 var result = JsonConvert.DeserializeObject<IEnumerable<Hero>>(heroes).ToList();
 
+                _heroes = result;
+
                 return result;
             }
             else
             {
                 return new List<Hero>() { new Hero { PrimaryName = "No found", Group = "No favorites found" } };
             }
+        }
+
+        private void Search_OnChange(object sender, TextChangedEventArgs e)
+        {
+            var keyword = searchBar.Text.ToLower();
+            var searchResult = _heroes.Where(h => h.PrimaryName.ToLower().Contains(keyword));
+
+            if (searchResult.Count() > 0)
+                favoritesListView.ItemsSource = searchResult;
+            else
+                favoritesListView.ItemsSource = new List<Hero>() { new Hero { PrimaryName = "No found", Group = "No favorites found" } };
         }
     }
 }

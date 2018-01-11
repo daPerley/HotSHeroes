@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HotsHeroes.AllHeroesPage">
-    
-    <ListView x:Name="favoritesListView">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding PrimaryName}" Detail="{Binding Group}, {Binding SubGroup}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout>
+        <SearchBar x:Name="searchBar" TextChanged="Search_OnChange"></SearchBar>
+        <ListView x:Name="favoritesListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding PrimaryName}" Detail="{Binding Group}, {Binding SubGroup}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
